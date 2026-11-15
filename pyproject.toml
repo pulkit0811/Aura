@@ -14,6 +14,7 @@ line-ending = "lf"
 
 [tool.pytest.ini_options]
 testpaths = ["services/api/tests", "tests"]
+pythonpath = ["services/api"]
 python_files = ["test_*.py", "*_test.py"]
 addopts = "-ra"
 
