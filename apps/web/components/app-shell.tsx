@@ -1,60 +1,68 @@
 "use client";
 
-import { useState, type ReactNode } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useState, type ReactNode } from "react";
 
 import { NavIcon, type NavIconName } from "@/components/nav-icon";
 
 type NavigationItem = {
   label: string;
   icon: NavIconName;
-  active?: boolean;
+  href: string;
 };
 
 const workspaceItems: NavigationItem[] = [
-  { label: "Overview", icon: "overview", active: true },
-  { label: "Chat", icon: "chat" },
-  { label: "Research", icon: "research" },
-  { label: "Knowledge", icon: "knowledge" },
+  { label: "Overview", icon: "overview", href: "/" },
+  { label: "Chat", icon: "chat", href: "/chat" },
+  { label: "Research", icon: "research", href: "/research" },
+  { label: "Knowledge", icon: "knowledge", href: "/knowledge" },
 ];
 
 const executionItems: NavigationItem[] = [
-  { label: "Agent Studio", icon: "agent" },
-  { label: "Tasks", icon: "tasks" },
-  { label: "Memory", icon: "memory" },
-  { label: "Evaluation", icon: "evaluation" },
+  { label: "Agent Studio", icon: "agent", href: "/agent-studio" },
+  { label: "Tasks", icon: "tasks", href: "/tasks" },
+  { label: "Memory", icon: "memory", href: "/memory" },
+  { label: "Evaluation", icon: "evaluation", href: "/evaluation" },
 ];
+
+const settingsItem: NavigationItem = {
+  label: "Settings",
+  icon: "settings",
+  href: "/settings",
+};
 
 function NavigationGroup({
   label,
   items,
+  pathname,
+  onNavigate,
 }: {
   label: string;
   items: NavigationItem[];
+  pathname: string;
+  onNavigate: () => void;
 }) {
   return (
     <div className="navigation-group">
       <p className="navigation-label">{label}</p>
       <div className="navigation-items">
-        {items.map((item) =>
-          item.active ? (
-            <Link className="navigation-item navigation-item-active" href="/" key={item.label}>
-              <NavIcon name={item.icon} />
-              <span>{item.label}</span>
-            </Link>
-          ) : (
-            <span
-              className="navigation-item navigation-item-disabled"
-              aria-disabled="true"
+        {items.map((item) => {
+          const isActive = pathname === item.href;
+
+          return (
+            <Link
+              className={`navigation-item ${isActive ? "navigation-item-active" : ""}`}
+              href={item.href}
               key={item.label}
-              title={`${item.label} will be added in a later milestone`}
+              aria-current={isActive ? "page" : undefined}
+              onClick={onNavigate}
             >
               <NavIcon name={item.icon} />
               <span>{item.label}</span>
-              <span className="navigation-soon">Soon</span>
-            </span>
-          ),
-        )}
+            </Link>
+          );
+        })}
       </div>
     </div>
   );
@@ -62,6 +70,11 @@ function NavigationGroup({
 
 export function AppShell({ children }: { children: ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const pathname = usePathname();
+  const currentPage = [...workspaceItems, ...executionItems, settingsItem].find(
+    (item) => item.href === pathname,
+  );
+  const closeSidebar = () => setSidebarOpen(false);
 
   return (
     <div className="app-shell">
@@ -84,17 +97,33 @@ export function AppShell({ children }: { children: ReactNode }) {
         </div>
 
         <nav className="sidebar-navigation" aria-label="Primary navigation">
-          <NavigationGroup label="Workspace" items={workspaceItems} />
-          <NavigationGroup label="Execution" items={executionItems} />
+          <NavigationGroup
+            label="Workspace"
+            items={workspaceItems}
+            pathname={pathname}
+            onNavigate={closeSidebar}
+          />
+          <NavigationGroup
+            label="Execution"
+            items={executionItems}
+            pathname={pathname}
+            onNavigate={closeSidebar}
+          />
         </nav>
 
-        <div className="sidebar-footer">
+        <Link
+          className={`sidebar-footer ${pathname === settingsItem.href ? "sidebar-footer-active" : ""}`}
+          href={settingsItem.href}
+          aria-current={pathname === settingsItem.href ? "page" : undefined}
+          onClick={closeSidebar}
+        >
           <span className="workspace-indicator" aria-hidden="true" />
           <div>
             <p className="workspace-name">Personal workspace</p>
             <p className="workspace-caption">Local environment</p>
           </div>
-        </div>
+          <NavIcon name={settingsItem.icon} />
+        </Link>
       </aside>
 
       <div className="main-column">
@@ -113,7 +142,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           <div className="topbar-context">
             <span className="topbar-context-muted">Workspace</span>
             <span className="topbar-divider">/</span>
-            <span>Overview</span>
+            <span>{currentPage?.label ?? "Workspace"}</span>
           </div>
           <div className="topbar-status">
             <span className="topbar-status-dot" aria-hidden="true" />

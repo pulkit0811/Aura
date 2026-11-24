@@ -299,12 +299,8 @@ h1 {
   color: #b0bbff;
 }
 
-.navigation-item-disabled {
-  cursor: not-allowed;
-  opacity: 0.66;
-}
-
-.navigation-item-disabled:hover {
+.navigation-item:not(.navigation-item-active):hover,
+.sidebar-footer:hover {
   background: rgba(255, 255, 255, 0.025);
 }
 
@@ -328,6 +324,14 @@ h1 {
   gap: 10px;
   padding: 15px 12px 0;
   border-top: 1px solid var(--border);
+}
+
+.sidebar-footer-active {
+  color: var(--text-primary);
+}
+
+.sidebar-footer .nav-icon {
+  margin-left: auto;
 }
 
 .workspace-indicator,
@@ -570,6 +574,59 @@ h1 {
   padding: 0;
 }
 
+.section-page {
+  display: grid;
+  gap: 32px;
+}
+
+.section-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.section-page h1 {
+  margin: 14px 0 9px;
+  font-size: clamp(2.3rem, 5vw, 4.2rem);
+  line-height: 0.98;
+}
+
+.module-placeholder {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  min-height: 260px;
+  padding: 42px;
+}
+
+.placeholder-icon {
+  display: grid;
+  width: 58px;
+  height: 58px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid rgba(139, 157, 255, 0.42);
+  border-radius: var(--radius-md);
+  background: var(--accent-muted);
+  color: var(--accent-bright);
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.module-placeholder h2 {
+  margin: 10px 0;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+}
+
+.placeholder-copy {
+  max-width: 65ch;
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: var(--text-md);
+  line-height: 1.7;
+}
+
 /* Shared UI primitives */
 
 .ui-panel {
@@ -764,6 +821,16 @@ h1 {
   .welcome-orbit {
     align-self: center;
     transform: scale(0.84);
+  }
+
+  .section-heading,
+  .module-placeholder {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .module-placeholder {
+    padding: 30px 24px;
   }
 
   .overview-grid {

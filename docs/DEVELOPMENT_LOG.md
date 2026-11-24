@@ -67,3 +67,11 @@ This log records completed daily milestones, verification, and notable implement
 - Configured ESLint to ignore generated Next.js output and generated type files.
 - Verification: frontend lint, TypeScript checking, and production build passed.
 
+## Day 10 — Navigation pages
+
+- Added routes for Overview, Chat, Research, Knowledge, Agent Studio, Tasks, Memory, Evaluation, and Settings.
+- Added active-route highlighting and dynamic workspace context in the application shell.
+- Added mobile navigation close behavior after route selection.
+- Added honest scaffold screens for modules that are not functional yet.
+- Verification: frontend lint, TypeScript checking, and production build passed with all planned routes generated.
+
