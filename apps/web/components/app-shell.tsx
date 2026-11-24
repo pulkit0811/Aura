@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type ReactNode } from "react";
+import Link from "next/link";
 
 import { NavIcon, type NavIconName } from "@/components/nav-icon";
 
@@ -37,10 +38,10 @@ function NavigationGroup({
       <div className="navigation-items">
         {items.map((item) =>
           item.active ? (
-            <a className="navigation-item navigation-item-active" href="/" key={item.label}>
+            <Link className="navigation-item navigation-item-active" href="/" key={item.label}>
               <NavIcon name={item.icon} />
               <span>{item.label}</span>
-            </a>
+            </Link>
           ) : (
             <span
               className="navigation-item navigation-item-disabled"

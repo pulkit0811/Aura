@@ -18,3 +18,14 @@ def test_health_endpoint_returns_service_status() -> None:
         "environment": "test",
     }
 
+
+def test_local_frontend_alias_is_allowed_in_development() -> None:
+    client = TestClient(create_app(Settings(environment="test")))
+
+    response = client.get(
+        "/api/health",
+        headers={"Origin": "http://127.0.0.1:3000"},
+    )
+
+    assert response.headers["access-control-allow-origin"] == "http://127.0.0.1:3000"
+

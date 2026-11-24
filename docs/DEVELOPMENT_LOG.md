@@ -41,3 +41,21 @@ This log records completed daily milestones, verification, and notable implement
 - Marked future areas as unavailable rather than presenting placeholder functionality as complete.
 - Verified frontend manifests and JavaScript configuration statically.
 
+## Day 7 — Documentation baseline
+
+- Added `AGENTS.md` with the project collaboration and verification rules.
+- Added the milestone-level roadmap, development log, and changelog.
+- Recorded the initial dependency-light configuration decision.
+- Kept `README.md` focused on the stable product idea and long-term plan.
+
+## Day 8 — Foundation verification
+
+- Installed the frontend dependencies and generated the frontend lockfile.
+- Upgraded Next.js and its ESLint configuration to the patched `15.5.9` release.
+- Verified frontend linting, TypeScript checking, and the production build.
+- Ran the FastAPI service locally and verified `/api/health` returned HTTP 200.
+- Ran the production Next.js service locally and verified the root page returned HTTP 200.
+- Fixed local development CORS handling for both `localhost:3000` and `127.0.0.1:3000`.
+- Added a regression test for the local frontend origin.
+- Verification: 2 backend tests passed; frontend lint, typecheck, and build passed; both local services responded successfully.
+

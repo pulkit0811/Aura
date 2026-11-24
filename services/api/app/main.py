@@ -20,9 +20,15 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         version="0.1.0",
         description="Backend API for the AURA personal AI workspace.",
     )
+    allowed_origins = [resolved_settings.web_origin]
+    if resolved_settings.environment != "production":
+        for local_origin in ("http://localhost:3000", "http://127.0.0.1:3000"):
+            if local_origin not in allowed_origins:
+                allowed_origins.append(local_origin)
+
     application.add_middleware(
         CORSMiddleware,
-        allow_origins=[resolved_settings.web_origin],
+        allow_origins=allowed_origins,
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],
