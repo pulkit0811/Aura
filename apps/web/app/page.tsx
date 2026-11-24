@@ -1,5 +1,6 @@
 import { AppShell } from "@/components/app-shell";
 import { ApiStatus } from "@/components/api-status";
+import { Panel } from "@/components/ui/panel";
 
 export default function Home() {
   return (
@@ -16,7 +17,7 @@ export default function Home() {
           <div className="date-context">Workspace overview</div>
         </div>
 
-        <section className="welcome-panel" aria-labelledby="welcome-title">
+        <Panel as="section" className="welcome-panel" aria-labelledby="welcome-title">
           <div>
             <p className="panel-kicker">AURA workspace</p>
             <h2 id="welcome-title">Build knowledge that works for you.</h2>
@@ -30,23 +31,23 @@ export default function Home() {
             <span className="orbit-ring orbit-ring-small" />
             <span className="orbit-core">A</span>
           </div>
-        </section>
+        </Panel>
 
         <section className="overview-grid" aria-label="Workspace status">
-          <article className="overview-card overview-card-wide">
+          <Panel as="article" className="overview-card overview-card-wide">
             <p className="card-label">System status</p>
             <ApiStatus />
-          </article>
-          <article className="overview-card">
+          </Panel>
+          <Panel as="article" className="overview-card">
             <p className="card-label">Conversations</p>
             <p className="card-value">—</p>
             <p className="card-caption">Chat will be connected next.</p>
-          </article>
-          <article className="overview-card">
+          </Panel>
+          <Panel as="article" className="overview-card">
             <p className="card-label">Knowledge sources</p>
             <p className="card-value">—</p>
             <p className="card-caption">Your document library is coming soon.</p>
-          </article>
+          </Panel>
         </section>
       </main>
     </AppShell>

@@ -59,3 +59,11 @@ This log records completed daily milestones, verification, and notable implement
 - Added a regression test for the local frontend origin.
 - Verification: 2 backend tests passed; frontend lint, typecheck, and build passed; both local services responded successfully.
 
+## Day 9 — Design system baseline
+
+- Added shared design tokens for colors, typography, spacing, radii, shadows, and focus states.
+- Added reusable `Button`, `Panel`, `StatusBadge`, and class-name utility primitives.
+- Applied the primitives to the Overview screen and backend connection state.
+- Configured ESLint to ignore generated Next.js output and generated type files.
+- Verification: frontend lint, TypeScript checking, and production build passed.
+

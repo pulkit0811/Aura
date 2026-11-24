@@ -2,6 +2,8 @@
 
 import { useCallback, useEffect, useState } from "react";
 
+import { Button } from "@/components/ui/button";
+import { StatusBadge } from "@/components/ui/status-badge";
 import { getHealth, type HealthResponse } from "@/lib/api";
 
 type RequestState = "checking" | "connected" | "error";
@@ -42,6 +44,9 @@ export function ApiStatus() {
         ? "Unavailable"
         : "Checking";
 
+  const tone =
+    state === "connected" ? "success" : state === "error" ? "danger" : "neutral";
+
   return (
     <div className="status-card" aria-live="polite">
       <div>
@@ -54,18 +59,19 @@ export function ApiStatus() {
               : "Checking the AURA API service..."}
         </p>
         {state === "error" && (
-          <button
+          <Button
             className="retry-button"
+            size="sm"
             type="button"
             onClick={() => checkHealth()}
           >
             Retry connection
-          </button>
+          </Button>
         )}
       </div>
-      <span className="status-indicator" data-state={state}>
+      <StatusBadge tone={tone}>
         {label}
-      </span>
+      </StatusBadge>
     </div>
   );
 }
