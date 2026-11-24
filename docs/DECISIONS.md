@@ -58,3 +58,11 @@ This file records decisions that shape AURA’s architecture. Decisions should b
 
 **Reasoning:** Reliability, inspectability, cancellation, and safe tool execution are more important than adding autonomous complexity early.
 
+## ADR-008: Keep initial runtime configuration dependency-light
+
+**Status:** Accepted
+
+**Decision:** Load the initial backend settings through Pydantic and standard environment variables rather than adding a separate settings framework.
+
+**Reasoning:** The first service needs a small, portable configuration layer. A dependency-light approach keeps local setup simple while leaving room to introduce richer configuration behavior when deployment requirements justify it.
+
