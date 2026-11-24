@@ -83,3 +83,10 @@ This log records completed daily milestones, verification, and notable implement
 - Added a subtle loading animation and consistent state styling using the design tokens.
 - Verification: frontend lint, TypeScript checking, and production build passed with all routes generated.
 
+## Day 12 — Overview dashboard
+
+- Replaced placeholder dashboard values with explicit empty and idle states.
+- Added live backend status, recent activity state, workspace details, and quick navigation actions.
+- Added dashboard panels for conversations, knowledge sources, and active tasks without fabricating counts or activity.
+- Verification: frontend lint, TypeScript checking, and production build passed with all routes generated.
+

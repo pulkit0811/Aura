@@ -16,4 +16,5 @@ All meaningful user-facing and architectural changes to AURA are recorded here.
 - Shared design tokens and reusable UI primitives for panels, buttons, and status badges.
 - Functional navigation routes and honest scaffold screens for the planned AURA modules.
 - Reusable loading, empty, and error states with backend retry feedback.
+- Initial Overview dashboard with live system status, workspace context, empty activity states, and quick actions.
 
