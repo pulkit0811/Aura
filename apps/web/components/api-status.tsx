@@ -3,6 +3,10 @@
 import { useCallback, useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import {
+  ErrorState,
+  LoadingState,
+} from "@/components/ui/feedback-state";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { getHealth, type HealthResponse } from "@/lib/api";
 
@@ -37,40 +41,46 @@ export function ApiStatus() {
     return () => controller.abort();
   }, [checkHealth]);
 
-  const label =
-    state === "connected"
-      ? "Connected"
-      : state === "error"
-        ? "Unavailable"
-        : "Checking";
+  if (state === "checking") {
+    return (
+      <div className="status-card" aria-live="polite">
+        <LoadingState
+          compact
+          title="Checking backend connection"
+          description="Verifying that the AURA API service is available."
+        />
+      </div>
+    );
+  }
+
+  if (state === "error") {
+    return (
+      <div className="status-card" aria-live="polite">
+        <ErrorState
+          compact
+          title="Backend connection unavailable"
+          description="Start the API service to connect AURA."
+          action={
+            <Button size="sm" type="button" onClick={() => checkHealth()}>
+              Retry connection
+            </Button>
+          }
+        />
+      </div>
+    );
+  }
 
   const tone =
-    state === "connected" ? "success" : state === "error" ? "danger" : "neutral";
+    state === "connected" ? "success" : "neutral";
 
   return (
     <div className="status-card" aria-live="polite">
       <div>
         <p className="status-heading">Backend connection</p>
-        <p className="status-description">
-          {health
-            ? `${health.service} is running in ${health.environment}.`
-            : state === "error"
-              ? "Start the API service to connect AURA."
-              : "Checking the AURA API service..."}
-        </p>
-        {state === "error" && (
-          <Button
-            className="retry-button"
-            size="sm"
-            type="button"
-            onClick={() => checkHealth()}
-          >
-            Retry connection
-          </Button>
-        )}
+        <p className="status-description">{`${health?.service} is running in ${health?.environment}.`}</p>
       </div>
       <StatusBadge tone={tone}>
-        {label}
+        Connected
       </StatusBadge>
     </div>
   );

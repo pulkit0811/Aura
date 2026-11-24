@@ -75,3 +75,11 @@ This log records completed daily milestones, verification, and notable implement
 - Added honest scaffold screens for modules that are not functional yet.
 - Verification: frontend lint, TypeScript checking, and production build passed with all planned routes generated.
 
+## Day 11 — Loading and empty states
+
+- Added reusable loading, empty, and error feedback state components.
+- Applied empty states to unfinished module pages.
+- Applied loading and error states, including retry behavior, to backend connectivity.
+- Added a subtle loading animation and consistent state styling using the design tokens.
+- Verification: frontend lint, TypeScript checking, and production build passed with all routes generated.
+

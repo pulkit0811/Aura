@@ -1,5 +1,6 @@
 import { Panel } from "@/components/ui/panel";
 import { StatusBadge } from "@/components/ui/status-badge";
+import { EmptyState } from "@/components/ui/feedback-state";
 
 type SectionPageProps = {
   eyebrow: string;
@@ -26,14 +27,10 @@ export function SectionPage({
       </header>
 
       <Panel className="module-placeholder">
-        <div className="placeholder-icon" aria-hidden="true">
-          A
-        </div>
-        <div>
-          <p className="card-label">Module boundary ready</p>
-          <h2>{title} will be built incrementally.</h2>
-          <p className="placeholder-copy">{plannedWork}</p>
-        </div>
+        <EmptyState
+          title={`${title} is scaffolded, not functional yet.`}
+          description={plannedWork}
+        />
       </Panel>
     </main>
   );
